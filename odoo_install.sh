@@ -66,8 +66,8 @@ echo -e "\n---- Install tool packages ----"
 sudo apt-get install wget git bzr python-pip gdebi-core -y
 
 echo -e "\n---- Install python packages ----"
-sudo apt-get install python-pypdf2 python-dateutil python-feedparser python-ldap python-libxslt1 python-lxml python-mako python-openid python-psycopg2 python-pybabel python-pychart python-pydot python-pyparsing python-reportlab python-simplejson python-tz python-vatnumber python-vobject python-webdav python-werkzeug python-xlwt python-yaml python-zsi python-docutils python-psutil python-mock python-unittest2 python-jinja2 python-pypdf python-decorator python-requests python-passlib python-pil -y
-sudo pip3 install pypdf2 Babel passlib Werkzeug decorator python-dateutil pyyaml psycopg2 psutil html2text docutils lxml pillow reportlab ninja2 requests gdata XlsxWriter vobject python-openid pyparsing pydot mock mako Jinja2 ebaysdk feedparser xlwt psycogreen suds-jurko pytz pyusb greenlet xlrd libsasl2-dev
+sudo apt-get install python-pypdf2 python-dateutil python-feedparser python-ldap python-libxslt1 python-lxml python-mako python-openid python-psycopg2 python-pybabel python-pychart python-pydot python-pyparsing python-reportlab python-simplejson python-tz python-vatnumber python-vobject python-webdav python-werkzeug python-xlwt python-yaml python-zsi python-docutils python-psutil python-mock python-unittest2 python-jinja2 python-pypdf python-decorator python-requests python-passlib python-pil libsasl2-dev libldap2-dev -y
+sudo pip3 install pypdf2 Babel passlib Werkzeug decorator python-dateutil pyyaml psycopg2 psutil html2text docutils lxml pillow reportlab ninja2 requests gdata XlsxWriter vobject python-openid pyparsing pydot mock mako Jinja2 ebaysdk feedparser xlwt psycogreen suds-jurko pytz pyusb greenlet xlrd
 
 echo -e "\n---- Install python libraries ----"
 # This is for compatibility with Ubuntu 16.04. Will work on 14.04, 15.04 and 16.04
@@ -117,7 +117,6 @@ case "$custom_odoo_git" in
     * ) echo "invalid";;
 esac
 
-echo -e "\n---- Git clone odoo ----"
 sudo git clone --depth 1 --branch $OE_VERSION $GIT_REPO_ODOO $OE_HOME_EXT/
 
 sudo pip3 install -r $OE_HOME_EXT/requirements.txt
@@ -143,7 +142,6 @@ if [ $IS_ENTERPRISE = "True" ]; then
         * ) echo "invalid";;
     esac
 
-    echo -e "\n---- Git clone enterprise ----"
     GITHUB_RESPONSE=$(sudo git clone --depth 1 --branch $OE_VERSION $GIT_REPO_ENTERPRISE "$OE_HOME/enterprise/addons" 2>&1)
     while [[ $GITHUB_RESPONSE == *"Authentication"* ]]; do
         echo "------------------------WARNING------------------------------"
@@ -175,7 +173,6 @@ if [ $CUSTOM_ADDONS = "True" ]; then
     sudo su $OE_USER -c "mkdir $OE_HOME/custom"
 
     read -p "Custom addons Git repository: " GIT_REPO_CUSTOM_ADDONS
-    echo -e "\n---- Git clone custom addons ----"
     GIT_RESPONSE=$(sudo git clone --depth 1 --branch $OE_VERSION $GIT_REPO_CUSTOM_ADDONS "$OE_HOME/custom/addons" 2>&1)
 fi
 
