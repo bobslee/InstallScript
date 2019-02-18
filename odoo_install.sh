@@ -27,8 +27,14 @@ OE_PORT="8069"
 #Choose the Odoo version which you want to install. For example: 11.0, 10.0, 9.0 or saas-18. When using 'master' the master version will be installed.
 #IMPORTANT! This script contains extra libraries that are specifically needed for Odoo 11.0
 OE_VERSION="11.0"
-# Set this to True if you want to install Odoo 11 Enterprise!
-IS_ENTERPRISE="False"
+
+read -p "Install Odoo Enterprise (y/n)? " install_enterprise
+case "$install_enterprise" in
+    y|Y ) IS_ENTERPRISE="True";;
+    n|N ) IS_ENTERPRISE="False";;
+    * ) echo "invalid";;
+esac
+
 #set the superadmin password
 OE_SUPERADMIN="admin"
 OE_CONFIG="${OE_USER}-server"
